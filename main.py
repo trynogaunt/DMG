@@ -31,7 +31,7 @@ class Bot(commands.Bot):
 
 bot = Bot()
 
-with open('default.toml','r', encoding="utf8") as f:
+with open('config.toml','r', encoding="utf8") as f:
     config = toml.load(f)
                      
 

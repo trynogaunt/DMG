@@ -1,0 +1,14 @@
+###THIS FILE IS SKELETON PLEASE DON'T USE FOR PRODUCT , COPY/PASTE , RENAME IT "config.toml",  AND EDIT BEFORE ALL COMMENTS###S
+[permissions]
+commands_channel =   #Command/Administration channel id
+debate_channel = #Pool channel id
+register_channel = #Registering channel Id
+
+[messages]
+tournament_registering = "" #Successfull registering message
+tournament_full = "" #Failed registering message (tournament full)
+player_not_match = "" #Player doesn't play this match message
+wrong_player_number = "" #Wrong player number message
+
+[connect]
+BotToken = "" #Bot Token
