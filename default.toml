@@ -1,4 +1,4 @@
-###THIS FILE IS SKELETON PLEASE DON'T USE FOR PRODUCT , COPY/PASTE IT AND EDIT BEFORE ALL COMMENTS###S
+###THIS FILE IS SKELETON PLEASE DON'T USE FOR PRODUCT , COPY/PASTE , RENAME IT "config.toml",  AND EDIT BEFORE ALL COMMENTS###S
 [permissions]
 commands_channel =   #Command/Administration channel id
 debate_channel = #Pool channel id
