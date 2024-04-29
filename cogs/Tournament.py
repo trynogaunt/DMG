@@ -14,7 +14,7 @@ class Tournament(commands.Cog):
     
     @app_commands.command(description="Créer un tournoi et envoie un message d'inscription")
     async def register(self, interaction : discord.Interaction):
-        with open('default.toml','r', encoding="utf8") as f:
+        with open('config.toml','r', encoding="utf8") as f:
             config = toml.load(f)
             if interaction.channel.id == config['permissions']['commands_channel']:
                 if self.dmg == None:
@@ -29,7 +29,7 @@ class Tournament(commands.Cog):
     
     @app_commands.command(description="Ajoute un joueur à la liste des participants")
     async def add_player(self, interaction : discord.Interaction , player_name : str):
-      with open('default.toml','r', encoding="utf8") as f:
+      with open('config.toml','r', encoding="utf8") as f:
             config = toml.load(f)
             if interaction.channel.id == config['permissions']['commands_channel']:
                 if self.dmg == None: 
@@ -43,7 +43,7 @@ class Tournament(commands.Cog):
     
     @app_commands.command(description="Retire un joueur de la liste des participants")
     async def remove_player(self, interaction : discord.Interaction , player_name : str):
-      with open('default.toml','r', encoding="utf8") as f:
+      with open('config.toml','r', encoding="utf8") as f:
             config = toml.load(f)
             if interaction.channel.id == config['permissions']['commands_channel']:
                 if self.dmg == None: 
@@ -61,7 +61,7 @@ class Tournament(commands.Cog):
     @app_commands.command(description="Créer une bracket de tournoi")
     async def start_dmg(self, interaction : discord.Interaction):
          join_list = []
-         with open('default.toml','r', encoding="utf8") as f:
+         with open('config.toml','r', encoding="utf8") as f:
             config = toml.load(f)
             if interaction.channel.id == config['permissions']['commands_channel']:
                 if self.dmg == None: 
@@ -89,7 +89,7 @@ class Tournament(commands.Cog):
     @app_commands.command(description="Cible le match renseigné")
     async def duel(self, interaction : discord.Interaction, number : int):
           msg = "Match inexistant"
-          with open('default.toml','r', encoding="utf8") as f:
+          with open('config.toml','r', encoding="utf8") as f:
             config = toml.load(f)
             if interaction.channel.id == config['permissions']['commands_channel']:
                 for match in self.dmg.get_match_list():
@@ -111,7 +111,7 @@ class Tournament(commands.Cog):
     
     @app_commands.command(description="Définit le gagnant du match ciblé")
     async def set_winner(self, interaction : discord.Interaction , winner_name : str):
-         with open('default.toml','r', encoding="utf8") as f:
+         with open('config.toml','r', encoding="utf8") as f:
             config = toml.load(f)
             all_match_played = 1
             if interaction.channel.id == config['permissions']['commands_channel']:
@@ -145,7 +145,7 @@ class Tournament(commands.Cog):
     
     @app_commands.command(description="Passe au groupe de match suivant")
     async def next_dmg(self, interaction : discord.Interaction):
-        with open('default.toml','r', encoding="utf8") as f:
+        with open('config.toml','r', encoding="utf8") as f:
             config = toml.load(f)
             join_list = []
             if interaction.channel.id == config['permissions']['commands_channel']:
@@ -165,7 +165,7 @@ class Tournament(commands.Cog):
     
     @app_commands.command(name ="banhero", description="Créer un sondage de ban pour les héros(Séparer chaque nom avec une virgule)")
     async def banhero(self, interaction : discord.Interaction, heros : str):
-        with open('default.toml','r', encoding="utf8") as f:
+        with open('config.toml','r', encoding="utf8") as f:
             config = toml.load(f)
             if interaction.channel.id == config['permissions']['commands_channel']:
                 channel = self.bot.get_channel(config['permissions']['debate_channel'])
@@ -177,7 +177,7 @@ class Tournament(commands.Cog):
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
-        with open('default.toml','r', encoding="utf8") as f:
+        with open('config.toml','r', encoding="utf8") as f:
             config = toml.load(f)
             if user != reaction.message.author and reaction.emoji == "⚔️" and reaction.message.id == self.dmg.get_register_message_id():
                 if len(self.dmg.get_player_list()) < 8:
@@ -190,7 +190,7 @@ class Tournament(commands.Cog):
 
     @commands.Cog.listener()
     async def on_reaction_remove(self, reaction, user):
-        with open('default.toml','r', encoding="utf8") as f:
+        with open('config.toml','r', encoding="utf8") as f:
             config = toml.load(f)
             if user != reaction.message.author and reaction.emoji == "⚔️" and reaction.message.id == self.dmg.get_register_message_id():
                 reg_msg_id = self.dmg.fetch_player(user.name).get_message_id()
