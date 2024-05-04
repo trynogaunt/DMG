@@ -17,7 +17,7 @@ class Bot(commands.Bot):
     
     async def on_ready(self)-> None:
         print(f"Logged as {self.user.name}")
-        synced = await self.tree.sync(guild=discord.Object(id=1173979647889920010))
+        synced = await self.tree.sync(guild=discord.Object(id=1236250312185090118))
         print(f'Synced commands: {len(synced)}')
     
     async def setup_hook(self) -> None:

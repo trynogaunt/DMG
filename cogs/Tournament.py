@@ -5,6 +5,7 @@ from discord import app_commands
 import toml
 from app.classes.DMG import DMG
 from app.classes.Player import Player
+from app.views.RegisterView import RegisteringView , RegisteringEmbed
 
 
 class Tournament(commands.Cog):
@@ -12,14 +13,15 @@ class Tournament(commands.Cog):
         self.bot = bot
         self.dmg = None
     
-    @app_commands.command(description="Créer un tournoi et envoie un message d'inscription")
+    @app_commands.command(name="register", description="Créer un tournoi et envoie un message d'inscription")
     async def register(self, interaction : discord.Interaction):
         with open('config.toml','r', encoding="utf8") as f:
             config = toml.load(f)
             if interaction.channel.id == config['permissions']['commands_channel']:
                 if self.dmg == None:
-                    msg = await self.bot.get_channel(config['permissions']['register_channel']).send(config['messages']['tournament_registering'])
-                    await msg.add_reaction('⚔️')
+                    channel = self.bot.get_channel(config['permissions']['register_channel'])
+                    embed = RegisteringEmbed()
+                    msg = await channel.send(view=RegisteringView(), embed=embed)
                     self.dmg = DMG(msg.id , msg.guild.id , msg.channel.id)
                     await interaction.response.send_message("DMG crée", ephemeral=True)
                     print("DMG créé")
@@ -81,7 +83,7 @@ class Tournament(commands.Cog):
                             match = self.dmg.create_match(match_number ,seeded_list[i] ,seeded_list[i+1])
                             join_list.append(self.dmg.add_match(match))
                             match_number += 1
-                        msg = f"Les matchs ajoutés: \n{'\n'.join(join_list)}"
+                        msg = f"Les matchs ajoutés: \n{''.join(join_list)}"
                     else:
                         msg = config['messages']['wrong_player_number']
                 await interaction.response.send_message(msg, ephemeral= True)
@@ -160,7 +162,7 @@ class Tournament(commands.Cog):
                     join_list.append(self.dmg.add_match(match))
                     next_match += 1
                 self.dmg.set_played_match(0) 
-                msg = f"Les matchs ajoutés: \n{'\n'.join(join_list)}"
+                msg = f"Les matchs ajoutés: \n{''.join(join_list)}"
                 await interaction.response.send_message(msg, ephemeral=True)
     
     @app_commands.command(name ="banhero", description="Créer un sondage de ban pour les héros(Séparer chaque nom avec une virgule)")
@@ -200,4 +202,4 @@ class Tournament(commands.Cog):
                 await user.send("Désinscription au DMG enregistrée")
 
 async def setup(bot:commands.Bot) -> None:
-    await bot.add_cog(Tournament(bot),  guild=discord.Object(id=1173979647889920010))
+    await bot.add_cog(Tournament(bot),  guild=discord.Object(id=1236250312185090118))
