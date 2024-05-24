@@ -81,7 +81,8 @@ class Tournament(commands.Cog):
                             match = self.dmg.create_match(match_number ,seeded_list[i] ,seeded_list[i+1])
                             join_list.append(self.dmg.add_match(match))
                             match_number += 1
-                        msg = f"Les matchs ajoutés: \n{'\n'.join(join_list)}"
+                        list = '\n'.join(join_list)
+                        msg = f"Les matchs ajoutés: \n{list}"
                     else:
                         msg = config['messages']['wrong_player_number']
                 await interaction.response.send_message(msg, ephemeral= True)
